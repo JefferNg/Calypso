@@ -2,13 +2,13 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
-/Calpyso/[Ll]ibrary/
-/Calpyso/[Tt]emp/
-/Calpyso/[Oo]bj/
-/Calpyso/[Bb]uild/
-/Calpyso/[Bb]uilds/
-/Calpyso/[Ll]ogs/
-/Calpyso/[Uu]ser[Ss]ettings/
+/Calypso/[Ll]ibrary/
+/Calypso/[Tt]emp/
+/Calypso/[Oo]bj/
+/Calypso/[Bb]uild/
+/Calypso/[Bb]uilds/
+/Calypso/[Ll]ogs/
+/Calypso/[Uu]ser[Ss]ettings/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
