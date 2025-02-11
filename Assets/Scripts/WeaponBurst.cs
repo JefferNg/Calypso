@@ -27,7 +27,7 @@ public class WeaponBurst : MonoBehaviour
 
         animator.SetBool("AttackOccured", true);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.625f);
         colliderWeapon.enabled = true;
 
         yield return new WaitForSeconds(0.5f);
