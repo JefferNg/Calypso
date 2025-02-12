@@ -42,6 +42,11 @@ public class SkeletonMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            PlayerMovement player = collision.gameObject.GetComponent<PlayerMovement>();
+            if (player != null)
+            {
+                player.TakeDamage();
+            }
             StartCoroutine(HandleCollide(collision));
         }
     }
@@ -53,6 +58,7 @@ public class SkeletonMovement : MonoBehaviour
 
         if (playerRb != null)
         {
+            
             Vector2 pushDirection = (collision.transform.position - transform.position).normalized;
             pushDirection.y = 0.5f;
 
