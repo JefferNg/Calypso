@@ -17,7 +17,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(movementX * speed, rb.linearVelocityY);
         if (rb.linearVelocityY == 0)
