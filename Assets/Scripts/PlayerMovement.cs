@@ -1,14 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     private float movementX;
     [SerializeField] float speed;
     public Animator animator;
     private bool facingRight = true;
+    public int lives = 3;
 
+    [SerializeField] private GameObject[] hearts;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,7 +19,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(movementX * speed, rb.linearVelocityY);
         if (rb.linearVelocityY == 0)
@@ -54,5 +56,33 @@ public class NewMonoBehaviourScript : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+    }
+
+    public void TakeDamage()
+    {
+        if (lives > 0)
+        {
+            lives--;
+            UpdateHearts();
+
+        }
+        if (lives <= 0)
+        {
+            Time.timeScale = 0;
+        }
+    }
+
+    private void UpdateHearts()
+    {
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i >= lives)
+            {
+                hearts[i].SetActive(false);
+            } else
+            {
+                hearts[i].SetActive(true);
+            }
+        }
     }
 }
