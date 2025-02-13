@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -25,7 +26,8 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(movementX * speed, rb.linearVelocityY);
-        if (rb.linearVelocityY == 0)
+        
+        if (_grounded)
         {
             animator.SetBool("Jump", false);
         }
@@ -46,6 +48,14 @@ public class PlayerMovement : MonoBehaviour
         {
             _grounded = true;
             _doubleJump = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            _grounded = false;
         }
     }
 
