@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     private bool facingRight = true;
     public int lives = 3;
+    private bool _grounded = true;
+    private bool _doubleJump = true;
 
     [SerializeField] private GameObject[] hearts;
 
@@ -37,6 +40,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            _grounded = true;
+            _doubleJump = true;
+        }
+    }
+
     void OnXMove(InputValue inputValue)
     {
         movementX = inputValue.Get<float>();
@@ -45,8 +57,18 @@ public class PlayerMovement : MonoBehaviour
 
     void OnJump()
     {
-        animator.SetBool("Jump", true);
-        rb.AddForce(Vector2.up * speed, ForceMode2D.Impulse);
+        if (_grounded)
+        {
+            animator.SetBool("Jump", true);
+            rb.AddForce(Vector2.up * speed, ForceMode2D.Impulse);
+            _grounded = false;
+        }
+        else if (_doubleJump)
+        {
+            animator.SetBool("Jump", true);
+            rb.AddForce(Vector2.up * speed, ForceMode2D.Impulse);
+            _doubleJump = false;
+        }
     }
 
     private void Flip()
