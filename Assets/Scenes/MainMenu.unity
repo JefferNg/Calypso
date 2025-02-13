@@ -552,7 +552,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Art:\nEder Muniz \nhttps://edermunizz.itch.io/\n\nAnokolisa\nhttps://anokolisa.itch.io/\n\nMusic:\nThe
+  m_text: "Game By Jeffer & Christopher\n\nArt:\nCalypso - Chris\nSkeleton - Chris\n\nBackground
+    Art:\nEder Muniz \nhttps://edermunizz.itch.io/\n\nAnokolisa\nhttps://anokolisa.itch.io/\n\nMusic:\nThe
     Adventure by Victor_Natas -- https://freesound.org/s/766921/ -- License: Attribution
     4.0\n\nMusic Documentaries by Muyo5438 -- https://freesound.org/s/713155/ --
     License: Attribution 4.0"
@@ -582,8 +583,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
