@@ -1628,7 +1628,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5230955704644317026, guid: 7d5fca8bc76d04d05b380bfdd8a20654, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7806364108047533931, guid: 7d5fca8bc76d04d05b380bfdd8a20654, type: 3}
       propertyPath: speed
@@ -2022,6 +2022,10 @@ PrefabInstance:
     - target: {fileID: 632430816249656460, guid: 60ebeebec30dc834b976093d0aa592a0, type: 3}
       propertyPath: m_Name
       value: S4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2915532732619713092, guid: 60ebeebec30dc834b976093d0aa592a0, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5862017320752023467, guid: 60ebeebec30dc834b976093d0aa592a0, type: 3}
       propertyPath: flipPoint1
