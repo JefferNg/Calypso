@@ -14,7 +14,10 @@ public class PlayerMovement : MonoBehaviour
     private bool _grounded = true;
     private bool _doubleJump = true;
 
-    [SerializeField] private GameObject[] hearts;
+    [SerializeField] GameObject[] hearts;
+    [SerializeField] Transform groundCheck;
+    [SerializeField] float groundCheckRadius = 0.2f;
+    [SerializeField] LayerMask groundLayer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,10 +29,12 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(movementX * speed, rb.linearVelocityY);
+        _grounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckRadius, groundLayer);
+        animator.SetBool("Jump", !_grounded);
         
         if (_grounded)
         {
-            animator.SetBool("Jump", false);
+            _doubleJump = true;
         }
 
         if (movementX > 0 && !facingRight)
@@ -39,23 +44,6 @@ public class PlayerMovement : MonoBehaviour
         else if (movementX < 0 && facingRight)
         {
             Flip();
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            _grounded = true;
-            _doubleJump = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            _grounded = false;
         }
     }
 
@@ -69,22 +57,24 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_grounded)
         {
-            animator.SetBool("Jump", true);
-            rb.AddForce(Vector2.up * speed, ForceMode2D.Impulse);
-            _grounded = false;
+            Jump();
+            _doubleJump = true;
         }
         else if (_doubleJump)
         {
-            animator.SetBool("Jump", true);
-            rb.AddForce(Vector2.up * speed, ForceMode2D.Impulse);
+            Jump();
             _doubleJump = false;
         }
+    }
+    private void Jump()
+    {
+        animator.SetBool("Jump", true);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, speed);
     }
 
     private void Flip()
     {
         facingRight = !facingRight;
-        
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
@@ -108,13 +98,7 @@ public class PlayerMovement : MonoBehaviour
     {
         for (int i = 0; i < hearts.Length; i++)
         {
-            if (i >= lives)
-            {
-                hearts[i].SetActive(false);
-            } else
-            {
-                hearts[i].SetActive(true);
-            }
+            hearts[i].SetActive(i < lives);
         }
     }
 }
