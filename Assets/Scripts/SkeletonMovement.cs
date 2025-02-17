@@ -11,6 +11,8 @@ public class SkeletonMovement : MonoBehaviour
     public float pushForce;
     private bool justCollidedWith = false;
 
+    private PlayerMovement playerMovement;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,12 +44,12 @@ public class SkeletonMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerMovement player = collision.gameObject.GetComponent<PlayerMovement>();
-            if (player != null)
+            playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
+            if (playerMovement != null)
             {
-                player.TakeDamage();
+                playerMovement.TakeDamage();
+                StartCoroutine(HandleCollide(collision));
             }
-            StartCoroutine(HandleCollide(collision));
         }
     }
 
@@ -60,7 +62,7 @@ public class SkeletonMovement : MonoBehaviour
         {
             SoundManager.instance.screamSound();
 
-            PlayerMovement playerMovement = playerRb.GetComponent<PlayerMovement>();
+            playerMovement = playerRb.GetComponent<PlayerMovement>();
             if (playerMovement != null)
             {
                 playerMovement.isKnockedBack = true;
@@ -93,4 +95,11 @@ public class SkeletonMovement : MonoBehaviour
         justCollidedWith = false;
     }
 
+    private void OnDestroy()
+    {
+        if (playerMovement != null)
+        {
+            playerMovement.isKnockedBack = false;
+        }
+    }
 }

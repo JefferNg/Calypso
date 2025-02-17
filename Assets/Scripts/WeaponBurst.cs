@@ -6,16 +6,19 @@ public class WeaponBurst : MonoBehaviour
     private Collider2D colliderWeapon;
     public Animator animator;
     private bool inAttack = false;
+    private PlayerMovement playerMovement;
 
     void Start()
     {
         colliderWeapon = GetComponent<Collider2D>();
         colliderWeapon.enabled = false;
+
+        playerMovement = GetComponentInParent<PlayerMovement>();
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !inAttack)
+        if (Input.GetMouseButtonDown(0) && !inAttack && playerMovement != null && !playerMovement.isKnockedBack)
         {
             SoundManager.instance.weaponSound();
             StartCoroutine(PerformAttack());
