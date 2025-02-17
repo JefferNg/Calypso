@@ -58,7 +58,7 @@ public class SkeletonMovement : MonoBehaviour
 
         if (playerRb != null)
         {
-            
+            SoundManager.instance.screamSound();
             Vector2 pushDirection = (collision.transform.position - transform.position).normalized;
             pushDirection.y = 0.5f;
 

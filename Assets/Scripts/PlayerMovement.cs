@@ -24,7 +24,20 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-
+    private void Update()
+    {
+        if (_grounded && movementX != 0)
+        {
+            if (!SoundManager.instance.GetComponent<AudioSource>().isPlaying)
+            {
+                SoundManager.instance.walkingSound();
+            }
+        }
+        else
+        {
+            SoundManager.instance.StopWalkingSound();
+        }
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -58,11 +71,13 @@ public class PlayerMovement : MonoBehaviour
         if (_grounded)
         {
             Jump();
+            SoundManager.instance.jumpSound();
             _doubleJump = true;
         }
         else if (_doubleJump)
         {
             Jump();
+            SoundManager.instance.doubleJumpSound();
             _doubleJump = false;
         }
     }
@@ -90,6 +105,8 @@ public class PlayerMovement : MonoBehaviour
         }
         if (lives <= 0)
         {
+            SoundManager.instance.loseSound();
+            GameManager.instance.ToggleGameMenu();
             Time.timeScale = 0;
         }
     }
