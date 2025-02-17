@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public int lives = 3;
     private bool _grounded = true;
     private bool _doubleJump = true;
+    public bool isKnockedBack = false;
 
     [SerializeField] GameObject[] hearts;
     [SerializeField] Transform groundCheck;
@@ -26,9 +27,9 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (_grounded && movementX != 0)
+        if (_grounded && movementX != 0 && !isKnockedBack)
         {
-            if (!SoundManager.instance.GetComponent<AudioSource>().isPlaying)
+            if (!SoundManager.instance.GetComponent<AudioSource>().isPlaying && !GameManager.instance.inMenu)
             {
                 SoundManager.instance.walkingSound();
             }
@@ -41,7 +42,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(movementX * speed, rb.linearVelocityY);
+        if (!isKnockedBack)
+        {
+            rb.linearVelocity = new Vector2(movementX * speed, rb.linearVelocityY);
+        }
+
         _grounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckRadius, groundLayer);
         animator.SetBool("Jump", !_grounded);
         
@@ -68,13 +73,13 @@ public class PlayerMovement : MonoBehaviour
 
     void OnJump()
     {
-        if (_grounded)
+        if (_grounded && !isKnockedBack)
         {
             Jump();
             SoundManager.instance.jumpSound();
             _doubleJump = true;
         }
-        else if (_doubleJump)
+        else if (_doubleJump && !isKnockedBack)
         {
             Jump();
             SoundManager.instance.doubleJumpSound();
@@ -84,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         animator.SetBool("Jump", true);
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, speed);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, speed * 1.5f);
     }
 
     private void Flip()

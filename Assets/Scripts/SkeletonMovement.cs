@@ -59,12 +59,38 @@ public class SkeletonMovement : MonoBehaviour
         if (playerRb != null)
         {
             SoundManager.instance.screamSound();
-            Vector2 pushDirection = (collision.transform.position - transform.position).normalized;
-            pushDirection.y = 0.5f;
 
-            playerRb.AddForce(pushDirection * pushForce, ForceMode2D.Impulse);
+            PlayerMovement playerMovement = playerRb.GetComponent<PlayerMovement>();
+            if (playerMovement != null)
+            {
+                playerMovement.isKnockedBack = true;
+            }
+
+            // Determine push direction
+            Vector2 pushDirection = (collision.transform.position - transform.position).normalized;
+            pushDirection.y = 0.1f;  
+            pushDirection.x = Mathf.Sign(pushDirection.x); 
+
+            // Reset player's velocity before applying push
+            playerRb.linearVelocity = Vector2.zero;
+
+            // Apply instant pushback
+            playerRb.linearVelocity = new Vector2(pushDirection.x * pushForce, 0f);
+
+            print("Push Direction: " + pushDirection);
+            print("Player Velocity after push: " + playerRb.linearVelocity);
+
+            yield return new WaitForSeconds(0.5f);
+
+            if (playerMovement != null)
+            {
+                playerMovement.isKnockedBack = false;
+            }
+           
         }
+
         yield return new WaitForSeconds(1f);
         justCollidedWith = false;
     }
+
 }

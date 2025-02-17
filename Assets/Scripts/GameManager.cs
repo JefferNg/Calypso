@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject ui; 
     [SerializeField] private GameObject gameOverUi;
+    public bool inMenu = false;
 
     public static GameManager instance;
 
@@ -31,6 +32,8 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape)) { 
             ToggleMenu();
+            inMenu = true;
+            Time.timeScale = 0f;
         }
     }
 
@@ -42,6 +45,8 @@ public class GameManager : MonoBehaviour
     public void Resume()
     {
         ui.SetActive(false);
+        Time.timeScale = 1f;
+        inMenu = false;
     }
 
     public void ToggleGameMenu()
