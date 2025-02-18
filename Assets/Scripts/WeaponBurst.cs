@@ -46,6 +46,7 @@ public class WeaponBurst : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy")) {
             SoundManager.instance.skeletonDeathSound();
             Destroy(collision.gameObject);
+            FindFirstObjectByType<GameManager>().EnemyUpdate();
         }
        
     }
