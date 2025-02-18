@@ -552,7 +552,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Game By Jeffer & Christopher\n\nArt:\nCalypso - Chris\nSkeletons - Chris\n\nCalypso's
+  m_text: "Game By Jeffer & Christopher\n\nArt and Functionality:\nCalypso - Chris\nSkeletons
+    - Chris\n\nLevel Design - Jeffer\nUI Design and Functionality - Jeffer\n\nCalypso's
     Sound Effects - Chris (Sampled From Friend Mimi's Voice)\n\nOther Sound Effects:\nBone
     Crack - https://freesound.org/people/Vinrax/sounds/161381/\nVictory And Defeat
     -\nhttps://freesound.org/people/Quazy1/sounds/778560/\nWalking in Grass - https://pixabay.com/sound-effects/search/grass/\n\nBackground
@@ -586,8 +587,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
